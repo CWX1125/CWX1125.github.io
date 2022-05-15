@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -384,7 +384,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    332
+                    321
                 </div>
                 
 
@@ -407,12 +407,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="什么是测试用例？"><a href="#什么是测试用例？" class="headerlink" title="什么是测试用例？"></a>什么是测试用例？</h2><p>测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求</p>
-<h3 id="根据场景法"><a href="#根据场景法" class="headerlink" title="根据场景法"></a>根据场景法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 进行用户可能执行的操作</span><br></pre></td></tr></table></figure>
-
-<h3 id="根据流程去考虑"><a href="#根据流程去考虑" class="headerlink" title="根据流程去考虑"></a>根据流程去考虑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 从登录引申出的<span class="string">&quot;验证码登录&quot;</span>和<span class="string">&quot;密码登录&quot;</span>等，随后再引申出<span class="string">&quot;登录成功&quot;</span>和<span class="string">&quot;登录失败&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="根据非功能测试的场景"><a href="#根据非功能测试的场景" class="headerlink" title="根据非功能测试的场景"></a>根据非功能测试的场景</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 网络场景、兼容性、接口返回是否正常，涉及手机号、钱、验证码接口是否加密、数据校验、UI、权限、业务上的（验证码有效时间、使用次数、一天内收验证码的次数）</span><br></pre></td></tr></table></figure>
-
+<h3 id="根据场景法"><a href="#根据场景法" class="headerlink" title="根据场景法"></a>根据场景法</h3><pre class=" language-TestCase"><code class="language-TestCase">进行用户可能执行的操作
+</code></pre>
+<h3 id="根据流程去考虑"><a href="#根据流程去考虑" class="headerlink" title="根据流程去考虑"></a>根据流程去考虑</h3><pre class=" language-TestCase"><code class="language-TestCase">从登录引申出的"验证码登录"和"密码登录"等，随后再引申出"登录成功"和"登录失败"
+</code></pre>
+<h3 id="根据非功能测试的场景"><a href="#根据非功能测试的场景" class="headerlink" title="根据非功能测试的场景"></a>根据非功能测试的场景</h3><pre class=" language-TestCase"><code class="language-TestCase">网络场景、兼容性、接口返回是否正常，涉及手机号、钱、验证码接口是否加密、
+数据校验、UI、权限、业务上的（验证码有效时间、使用次数、一天内收验证码的次数）
+</code></pre>
 <p>其实还有很多方法，比如等价类（分为有效和无效，无效的有长度，类型，不输入，是否重复）；边界值；错误推测法等等等等等好多种，往里面套就行</p>
 
                 
@@ -783,7 +784,6 @@
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
