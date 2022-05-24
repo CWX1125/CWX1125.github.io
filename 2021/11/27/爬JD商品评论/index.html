@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="如何设计测试用例, Cwx&#39;s Blog">
+    <meta name="keywords" content="爬JD商品评论, Cwx&#39;s Blog">
     <meta name="description" content="白日梦想家">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>如何设计测试用例 | Cwx&#39;s Blog</title>
+    <title>爬JD商品评论 | Cwx&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -225,12 +225,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/JD.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">如何设计测试用例</h1>
+                    <h1 class="description center-align post-title">爬JD商品评论</h1>
                 </div>
             </div>
         </div>
@@ -346,12 +346,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/QA/">
-                                <span class="chip bg-color">QA</span>
-                            </a>
-                        
-                            <a href="/tags/Test-Case/">
-                                <span class="chip bg-color">Test Case</span>
+                            <a href="/tags/web-crawler/">
+                                <span class="chip bg-color">web crawler</span>
                             </a>
                         
                     </div>
@@ -362,8 +358,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" class="post-category">
-                                软件测试
+                            <a href="/categories/Python/" class="post-category">
+                                Python
                             </a>
                         
                     </div>
@@ -375,7 +371,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-12-24
+                    2021-11-27
                 </div>
                 
 
@@ -384,14 +380,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    321
+                    596
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -406,15 +402,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="什么是测试用例？"><a href="#什么是测试用例？" class="headerlink" title="什么是测试用例？"></a>什么是测试用例？</h2><p>测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求</p>
-<h3 id="根据场景法"><a href="#根据场景法" class="headerlink" title="根据场景法"></a>根据场景法</h3><pre class=" language-TestCase"><code class="language-TestCase">进行用户可能执行的操作
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有熟人在开网店，了解到开网店就避免不了…你懂的<br>少量刷的时候还好，可等到大量刷就需要自己从别处一个个copy评论<br>看他每次copy得那么费劲，我就寻思自己能不能整个爬虫帮帮他<br>然后发现两个for循环就能搞定<br>那废话不多说，我们开始吧~</p>
+<h3 id="分析网页"><a href="#分析网页" class="headerlink" title="分析网页"></a>分析网页</h3><p>参考连接：<a target="_blank" rel="noopener" href="https://item.jd.com/10020746259899.html#crumb-wrap">https://item.jd.com/10020746259899.html#crumb-wrap</a><br>因为我刚买了iPhone11，现在正缺手机壳，所以就以11的手机壳为例~</p>
+<p>F12打开开发者工具先分析一波<br>具体怎么分析……就是找！挨着找！使劲找评论对应的json代码包！<br>然后终于在一个叫【productPageComments.action】的包中找到了<br>进【Preview】里瞅瞅是不是找对了</p>
+<p>ok，评论藏在了【comments】下，被定义为【content】</p>
+<p><img src="/images/JDpost/F12.png"></p>
+<h3 id="获取Request-URL"><a href="#获取Request-URL" class="headerlink" title="获取Request URL"></a>获取Request URL</h3><p>通过这一步得到【productPageComments.action】的文本数据<br>好了，该得到的信息我们都得到了，然后我们上代码吧~</p>
+<p><img src="/images/JDpost/reurl.png"></p>
+<h3 id="需要这几个module"><a href="#需要这几个module" class="headerlink" title="需要这几个module"></a>需要这几个module</h3><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
+
+<span class="token keyword">import</span> json
 </code></pre>
-<h3 id="根据流程去考虑"><a href="#根据流程去考虑" class="headerlink" title="根据流程去考虑"></a>根据流程去考虑</h3><pre class=" language-TestCase"><code class="language-TestCase">从登录引申出的"验证码登录"和"密码登录"等，随后再引申出"登录成功"和"登录失败"
+<h3 id="for循环①"><a href="#for循环①" class="headerlink" title="for循环①"></a>for循环①</h3><p>用for循环的意义在于，每页就10条评论，如果只爬10条评论的话，不如直接手动copy<br>所以我把RequestURL拆分开了<br>把【页数】定义成了变量<br>这样用for循环的时候，就可以根据你设定的范围去获取更多页的评论了</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    url1 <span class="token operator">=</span> <span class="token string">'https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98&amp;productId=10020746259899&amp;score=0&amp;sortType=5&amp;page='</span>
+
+    url2 <span class="token operator">=</span> str<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+
+    url3 <span class="token operator">=</span> <span class="token string">'&amp;pageSize=10&amp;isShadowSku=0&amp;fold=1'</span>
+
+    finalUrl <span class="token operator">=</span> url1<span class="token operator">+</span>url2<span class="token operator">+</span>url3
+
+    res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>finalUrl<span class="token punctuation">)</span>
+    data <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>res<span class="token punctuation">.</span>text<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre>
-<h3 id="根据非功能测试的场景"><a href="#根据非功能测试的场景" class="headerlink" title="根据非功能测试的场景"></a>根据非功能测试的场景</h3><pre class=" language-TestCase"><code class="language-TestCase">网络场景、兼容性、接口返回是否正常，涉及手机号、钱、验证码接口是否加密、
-数据校验、UI、权限、业务上的（验证码有效时间、使用次数、一天内收验证码的次数）
+<h3 id="for循环②"><a href="#for循环②" class="headerlink" title="for循环②"></a>for循环②</h3><p>这个for循环是嵌套进for循环①里的<br>目的是为了遍历获取到json文本里我们需要的那部分信息<br>我们需要的就只有评论，而评论被定义为【content】<br>所以我们最终要得到的是它<br>为了方便检验是否有正确获取到，整个print输出监控下</p>
+<p>然后因为如果直接把评论输出到控制台的话也不利于我们copy和查看<br>所以就需要将获取到的评论保存到本地</p>
+<p>保存完毕后同样print输出一下方便自己监控进度</p>
+<pre class=" language-python"><code class="language-python">    <span class="token keyword">for</span> i <span class="token keyword">in</span> data<span class="token punctuation">[</span><span class="token string">'comments'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        content <span class="token operator">=</span> i<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"已获取该条评论内容"</span><span class="token punctuation">)</span>
+        file <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"E:\\webcrawler\\comment.txt"</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">)</span>
+        file<span class="token punctuation">.</span>writelines<span class="token punctuation">(</span>format<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"！完成写入！"</span><span class="token punctuation">)</span>
 </code></pre>
-<p>其实还有很多方法，比如等价类（分为有效和无效，无效的有长度，类型，不输入，是否重复）；边界值；错误推测法等等等等等好多种，往里面套就行</p>
 
                 
             </div>
@@ -441,7 +463,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cwx1125.github.io/2018/12/24/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">https://cwx1125.github.io/2018/12/24/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/</a>
+                    <a href="https://cwx1125.github.io/2021/11/27/%E7%88%ACJD%E5%95%86%E5%93%81%E8%AF%84%E8%AE%BA/">https://cwx1125.github.io/2021/11/27/%E7%88%ACJD%E5%95%86%E5%93%81%E8%AF%84%E8%AE%BA/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -479,12 +501,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/QA/">
-                                    <span class="chip bg-color">QA</span>
-                                </a>
-                            
-                                <a href="/tags/Test-Case/">
-                                    <span class="chip bg-color">Test Case</span>
+                                <a href="/tags/web-crawler/">
+                                    <span class="chip bg-color">web crawler</span>
                                 </a>
                             
                         </div>
@@ -654,11 +672,61 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/11/%E8%B6%85%E7%AE%80%E9%99%8B%E7%88%AC%E7%99%BE%E5%BA%A6%E6%8A%93%E5%85%B3%E9%94%AE%E8%AF%8D/">
+                <a href="/2021/11/27/%E7%88%ACJD%E5%95%86%E5%93%81%E8%AF%84%E8%AE%BA/">
+                    <div class="card-image">
+                        
+                        <img src="/images/JD.jpg" class="responsive-img" alt="爬JD商品评论">
+                        
+                        <span class="card-title">爬JD商品评论</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            放过Ctrl+C和Ctrl+V
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web-crawler/">
+                        <span class="chip bg-color">web crawler</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/03/11/%E8%B6%85%E7%AE%80%E9%99%8B%E7%88%AC%E7%99%BE%E5%BA%A6%E6%8A%93%E5%85%B3%E9%94%AE%E8%AF%8D/">
                     <div class="card-image">
                         
                         <img src="/images/baidu.png" class="responsive-img" alt="超简陋爬百度抓关键词">
@@ -673,9 +741,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-03-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -693,60 +761,6 @@
                     
                     <a href="/tags/web-crawler/">
                         <span class="chip bg-color">web crawler</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2018/12/24/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="如何设计测试用例">
-                        
-                        <span class="card-title">如何设计测试用例</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            一点测试用例的设计思路
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-12-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" class="post-category">
-                                    软件测试
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/QA/">
-                        <span class="chip bg-color">QA</span>
-                    </a>
-                    
-                    <a href="/tags/Test-Case/">
-                        <span class="chip bg-color">Test Case</span>
                     </a>
                     
                 </div>
